@@ -4,21 +4,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const stepSchema = new mongoose_1.default.Schema({
+const doneSchema = new mongoose_1.default.Schema({
+    assignedName: {
+        type: String,
+    },
     assignedTask: {
         type: String,
-        require: true,
     },
-    assignedName: {},
-    asssignedPriority: {
+    assignedPriority: {
         type: String,
     },
     assignedAvatar: {
         type: String
-    },
-    task: {
-        type: mongoose_1.default.Types.ObjectId,
-        ref: "tasks",
     }
 }, { timestamps: true });
-exports.default = mongoose_1.default.model("steps", stepSchema);
+exports.default = mongoose_1.default.model("dones", doneSchema);

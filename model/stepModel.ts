@@ -1,12 +1,6 @@
 import mongoose from "mongoose";
+import { iStep } from "../utils/interface";
 
-export interface iStep{
-    assignedTask?: string;
-    assignedAvatar?: string;
-    assignedName?: string;
-    assignedPriority?: string;
-    task?: {};
-}
 
 interface iStepData extends iStep, mongoose.Document{}
 
@@ -17,8 +11,7 @@ const stepSchema = new mongoose.Schema(
             require: true,
         },
         assignedName:{
-            type: String,
-        },
+       },
         asssignedPriority:{
             type: String,
         },

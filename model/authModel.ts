@@ -1,11 +1,7 @@
 import mongoose from "mongoose";
+import { iAuth } from "../utils/interface";
 
-export interface iAuth{
-    userName?: string;
-    email?: string;
-    password?: string;
-    avatar?: string;
-}
+
 
 interface iAuthData extends iAuth, mongoose.Document{}
 

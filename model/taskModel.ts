@@ -1,12 +1,7 @@
 import mongoose from "mongoose";
+import { iTask } from "../utils/interface";
 
-export interface iTask {
-    task?: string;
-    avatar?: string;
-    name?: string;
-    priority?: string;
-    step?: {}[];
-}
+
 
 interface iTaskData extends iTask, mongoose.Document{}
 

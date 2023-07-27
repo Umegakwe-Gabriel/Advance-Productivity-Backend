@@ -15,12 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteOneUser = exports.updateOneUser = exports.readOneUser = exports.readUsers = exports.signinUser = exports.createUser = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const authModel_1 = __importDefault(require("../model/authModel"));
+const cloudinary_1 = __importDefault(require("../config/cloudinary"));
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
         const { userName, email, password, avatar } = req.body;
         const salt = yield bcrypt_1.default.genSalt(10);
         const hash = yield bcrypt_1.default.hash(password, salt);
-        const user = yield authModel_1.default.create({ userName, email, password: hash, avatar });
+        const { public_id, secure_url } = yield cloudinary_1.default.uploader.upload((_a = req.file) === null || _a === void 0 ? void 0 : _a.path);
+        const user = yield authModel_1.default.create({ userName: req.body.userName, email: req.body.email, password: hash, avatar: secure_url, avatarID: public_id });
         res.status(201).json({ message: "user created", data: user });
     }
     catch (error) {

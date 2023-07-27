@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt"
 import authModel from "../model/authModel";
+import cloudinary from "../config/cloudinary";
 
     export const createUser = async(req: Request, res: Response) =>{
         try {
@@ -9,7 +10,9 @@ import authModel from "../model/authModel";
             const salt = await bcrypt.genSalt(10);
             const hash = await bcrypt.hash(password, salt)
 
-            const user = await authModel.create({userName, email, password: hash, avatar})
+            const {public_id, secure_url} = await cloudinary.uploader.upload(req.file?.path!)
+
+            const user = await authModel.create({userName: req.body.userName, email: req.body.email, password: hash, avatar: secure_url, avatarID: public_id})
             res.status(201).json({message: "user created", data: user})
         } catch (error) {
             res.status(404).json({message: "Error Creating User"})
